@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C351993F2C8671FA00EC06F6 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C351993E2C8671FA00EC06F6 /* PhotoViewController.swift */; };
 		CB57503A2929E62C00890962 /* TaskAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5750392929E62C00890962 /* TaskAnnotationView.swift */; };
 		CB602B9929247359006C6727 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB602B9829247359006C6727 /* AppDelegate.swift */; };
 		CB602B9B29247359006C6727 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB602B9A29247359006C6727 /* SceneDelegate.swift */; };
@@ -21,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C319E4742C86893E00E5C3BD /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		C351993E2C8671FA00EC06F6 /* PhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		CB5750392929E62C00890962 /* TaskAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAnnotationView.swift; sourceTree = "<group>"; };
 		CB602B9529247359006C6727 /* lab-task-squirrel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "lab-task-squirrel.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB602B9829247359006C6727 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		CB602B8C29247359006C6727 = {
 			isa = PBXGroup;
 			children = (
+				C319E4742C86893E00E5C3BD /* README.md */,
 				CB602B9729247359006C6727 /* lab-task-squirrel */,
 				CB602B9629247359006C6727 /* Products */,
 			);
@@ -76,6 +80,7 @@
 				CB602BA32924735C006C6727 /* LaunchScreen.storyboard */,
 				CB602BA12924735C006C6727 /* Assets.xcassets */,
 				CB602BA62924735C006C6727 /* Info.plist */,
+				C351993E2C8671FA00EC06F6 /* PhotoViewController.swift */,
 			);
 			path = "lab-task-squirrel";
 			sourceTree = "<group>";
@@ -190,6 +195,7 @@
 				CB602B9D29247359006C6727 /* TaskListViewController.swift in Sources */,
 				CB9D9EDA292489E000F8F51B /* TaskComposeViewController.swift in Sources */,
 				CB57503A2929E62C00890962 /* TaskAnnotationView.swift in Sources */,
+				C351993F2C8671FA00EC06F6 /* PhotoViewController.swift in Sources */,
 				CB602B9929247359006C6727 /* AppDelegate.swift in Sources */,
 				CB602B9B29247359006C6727 /* SceneDelegate.swift in Sources */,
 				CB9D9ED1292483BC00F8F51B /* Task.swift in Sources */,

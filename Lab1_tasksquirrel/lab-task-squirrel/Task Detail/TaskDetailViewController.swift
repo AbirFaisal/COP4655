@@ -18,6 +18,10 @@ class TaskDetailViewController: UIViewController {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var attachPhotoButton: UIButton!
+    
+    // Step 8
+    @IBOutlet weak var viewSelectedImageButton: UIButton!
+    
 
     // MapView outlet
     @IBOutlet private weak var mapView: MKMapView!
@@ -26,10 +30,13 @@ class TaskDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // Step 7
         // TODO: Register custom annotation view
+        let tavID = TaskAnnotationView.identifier
+        mapView.register(TaskAnnotationView.self, forAnnotationViewWithReuseIdentifier: tavID)
 
         // TODO: Set mapView delegate
+        mapView.delegate = self
 
         // UI Candy
         mapView.layer.cornerRadius = 12
@@ -56,6 +63,9 @@ class TaskDetailViewController: UIViewController {
 
         mapView.isHidden = !task.isComplete
         attachPhotoButton.isHidden = task.isComplete
+        
+        // Step 8
+        viewSelectedImageButton.isHidden = !task.isComplete
     }
 
     @IBAction func didTapAttachPhotoButton(_ sender: Any) {
@@ -101,9 +111,43 @@ class TaskDetailViewController: UIViewController {
 
     func updateMapView() {
         // TODO: Set map viewing region and scale
+        // Step 5: Setup the map view
 
+        guard
+            let imageLocation = task.imageLocation
+        else {
+            return
+        }
+        
+        let coordinate = imageLocation.coordinate
+        let cordSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+        
+        let region = MKCoordinateRegion(center: coordinate, span: cordSpan)
+        
+        mapView.setRegion(region, animated: true)
+        
+        
         // TODO: Add annotation to map view
+        // Step 6: Add an annotation
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
     }
+    
+    
+    // Step 8 - pass information into the next view.
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+            // Segue to Detail View Controller
+         if segue.identifier == "PhotoSegue" {
+             if let photoViewController = segue.destination as? PhotoViewController {
+                 photoViewController.task = task
+              }
+          }
+      }
+    
+    
 }
 
 // TODO: Conform to PHPickerViewControllerDelegate + implement required method(s)
@@ -152,6 +196,8 @@ extension TaskDetailViewController {
 
 extension TaskDetailViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        // Step 3: Get the location metadata from the chosen photo
         picker.dismiss(animated: true)
         
         let result = results.first
@@ -165,5 +211,58 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
         
         print("\(location.coordinate)")
         
+        
+        // Step 4: Get the image from the chosen photo
+        guard
+            let provider = result?.itemProvider, provider.canLoadObject(ofClass: UIImage.self)
+        else{
+            return
+        }
+        
+        provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+            
+            if let error = error {
+                DispatchQueue.main.async {
+                    [weak self] in self?.showAlert(for:error)
+                }
+            }
+            
+            guard
+                let image = object as? UIImage
+            else {
+                return
+            }
+            
+            print("We have an image")
+            
+            DispatchQueue.main.async { [weak self] in
+                
+                self?.task.set(image, with:location)
+                
+                self?.updateUI()
+                
+                self?.updateMapView()
+                
+            }
+        }
+    }
+}
+
+
+extension TaskDetailViewController: MKMapViewDelegate {
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let identifier = TaskAnnotationView.identifier
+        
+        guard 
+            let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
+                as? TaskAnnotationView
+        else {
+            fatalError("Unable to dequeue TaskAnnotationView")
+        }
+        
+        annotationView.configure(with: task.image)
+        
+        return annotationView
     }
 }
