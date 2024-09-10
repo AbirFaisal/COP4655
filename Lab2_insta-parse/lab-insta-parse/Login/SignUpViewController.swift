@@ -29,13 +29,31 @@ class SignUpViewController: UIViewController {
               let password = passwordField.text,
               !username.isEmpty,
               !email.isEmpty,
-              !password.isEmpty else {
-
+              !password.isEmpty 
+        else {
             showMissingFieldsAlert()
             return
         }
 
         // TODO: Pt 1 - Parse user sign up
+        var newUser = User()
+        newUser.username = username
+        newUser.email = email
+        newUser.password = password
+        
+        newUser.signup() {
+            [weak self] result in
+            
+            switch result {
+            case .success(let user):
+                print("successfully signed up user: \(user)")
+                NotificationCenter.default.post(name: Notification.Name("login"), object: nil)
+                
+            case .failure(let error):
+                self?.showAlert(description: error.localizedDescription)
+            }
+        }
+        
 
     }
 
