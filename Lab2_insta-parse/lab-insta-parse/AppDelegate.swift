@@ -19,7 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // TODO: Pt 1 - Initialize Parse SDK
         // https://github.com/parse-community/Parse-Swift/blob/main/ParseSwift.playground/Sources/Common.swift
         
+        // load api keys from file ignored with .gitignore
+        let path = Bundle.main.path(forResource: "api_keys", ofType: "plist")!
+        let xml = FileManager.default.contents(atPath: path)!
+        let apiKeys = try? PropertyListDecoder().decode(ApiKeys.self, from: xml)
 
+        
+        let appID = apiKeys!.appID
+        let clientKey = apiKeys!.clientKey
+        let serverURL = URL(string: "https://parseapi.back4app.com")
         
         ParseSwift.initialize(applicationId: appID, clientKey: clientKey, serverURL: serverURL!)
         
@@ -81,4 +89,10 @@ extension GameScore {
         self.playerName = playerName
         self.points = points
     }
+}
+
+
+struct ApiKeys: Codable {
+    var appID:String
+    var clientKey:String
 }

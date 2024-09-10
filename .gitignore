@@ -89,3 +89,4 @@ fastlane/test_output
 
 iOSInjectionProject/
 *.DS_Store
+Lab2_insta-parse/lab-insta-parse/api_keys.plist
