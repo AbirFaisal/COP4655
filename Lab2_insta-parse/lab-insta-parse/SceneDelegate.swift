@@ -33,7 +33,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
 
         // TODO: Pt 1 - Check for cached user for persisted log in.
-
+        if User.current != nil {
+            login()
+        }
     }
 
     private func login() {
@@ -43,7 +45,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func logOut() {
         // TODO: Pt 1 - Log out Parse user.
-
+        User.logout {
+            [weak self] result in
+            
+            switch result {
+            case .success():
+                DispatchQueue.main.async {
+                    let storyboard = UIStoryboard(name: Constants.storyboardIdentifier, bundle: nil)
+                    
+                    let identifier = Constants.loginNavigationControllerIdentifier
+                    let viewController = storyboard.instantiateViewController(withIdentifier: identifier)
+                
+                    self?.window?.rootViewController = viewController
+                }
+            case .failure(let error):
+                print("Logout Error \(error)")
+            }
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
