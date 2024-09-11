@@ -8,8 +8,9 @@
 import UIKit
 
 // TODO: Import Photos UI
-
+import PhotosUI
 // TODO: Import Parse Swift
+import ParseSwift
 
 class PostViewController: UIViewController {
 
@@ -26,7 +27,16 @@ class PostViewController: UIViewController {
 
     @IBAction func onPickedImageTapped(_ sender: UIBarButtonItem) {
         // TODO: Pt 1 - Present Image picker
-
+        var config = PHPickerConfiguration()
+        config.filter = .images
+        config.preferredAssetRepresentationMode = .current
+        config.selectionLimit = 1
+        
+        let picker = PHPickerViewController(configuration: config)
+        
+        picker.delegate = self
+        
+        present(picker, animated: true)
     }
 
     @IBAction func onShareTapped(_ sender: Any) {
@@ -53,4 +63,43 @@ class PostViewController: UIViewController {
 }
 
 // TODO: Pt 1 - Add PHPickerViewController delegate and handle picked image.
+extension PostViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard
+            let provider = results.first?.itemProvider,
+            provider.canLoadObject(ofClass: UIImage.self)
+        else {
+            return
+        }
+        
+        provider.loadObject(ofClass: UIImage.self) {
+            [weak self] object, error in
+            
+            
+            guard
+                let image = object as? UIImage
+            else{
+                self?.showAlert()
+                return
+            }
+            
+            
+            if let error = error {
+                self?.showAlert(description: error.localizedDescription)
+            }
+            else {
+
+                  DispatchQueue.main.async {
+
+                     self?.previewImageView.image = image
+
+                     self?.pickedImage = image
+                  }
+               }
+
+        }
+    }
+}
 
