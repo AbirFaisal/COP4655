@@ -11,7 +11,7 @@ import MapKit
 // TODO: Import PhotosUI
 import PhotosUI
 
-class TaskDetailViewController: UIViewController {
+class ScavengeDetailViewController: UIViewController {
 
     @IBOutlet private weak var completedImageView: UIImageView!
     @IBOutlet private weak var completedLabel: UILabel!
@@ -26,7 +26,7 @@ class TaskDetailViewController: UIViewController {
     // MapView outlet
     @IBOutlet private weak var mapView: MKMapView!
 
-    var task: Scavenge!
+    var scavenge: Scavenge!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,24 +48,24 @@ class TaskDetailViewController: UIViewController {
 
     /// Configure UI for the given task
     private func updateUI() {
-        titleLabel.text = task.title
-        descriptionLabel.text = task.description
+        titleLabel.text = scavenge.title
+        descriptionLabel.text = scavenge.description
 
-        let completedImage = UIImage(systemName: task.isComplete ? "circle.inset.filled" : "circle")
+        let completedImage = UIImage(systemName: scavenge.isComplete ? "circle.inset.filled" : "circle")
 
         // calling `withRenderingMode(.alwaysTemplate)` on an image allows for coloring the image via it's `tintColor` property.
         completedImageView.image = completedImage?.withRenderingMode(.alwaysTemplate)
-        completedLabel.text = task.isComplete ? "Complete" : "Incomplete"
+        completedLabel.text = scavenge.isComplete ? "Complete" : "Incomplete"
 
-        let color: UIColor = task.isComplete ? .systemBlue : .tertiaryLabel
+        let color: UIColor = scavenge.isComplete ? .systemBlue : .tertiaryLabel
         completedImageView.tintColor = color
         completedLabel.textColor = color
 
-        mapView.isHidden = !task.isComplete
-        attachPhotoButton.isHidden = task.isComplete
+        mapView.isHidden = !scavenge.isComplete
+        attachPhotoButton.isHidden = scavenge.isComplete
         
         // Step 8
-        viewSelectedImageButton.isHidden = !task.isComplete
+        viewSelectedImageButton.isHidden = !scavenge.isComplete
     }
 
     @IBAction func didTapAttachPhotoButton(_ sender: Any) {
@@ -114,7 +114,7 @@ class TaskDetailViewController: UIViewController {
         // Step 5: Setup the map view
 
         guard
-            let imageLocation = task.imageLocation
+            let imageLocation = scavenge.imageLocation
         else {
             return
         }
@@ -142,7 +142,7 @@ class TaskDetailViewController: UIViewController {
             // Segue to Detail View Controller
          if segue.identifier == "PhotoSegue" {
              if let photoViewController = segue.destination as? PhotoViewController {
-                 photoViewController.task = task
+                 photoViewController.scavenge = scavenge
               }
           }
       }
@@ -155,13 +155,13 @@ class TaskDetailViewController: UIViewController {
 // TODO: Conform to MKMapKitDelegate + implement mapView(_:viewFor:) delegate method.
 
 // Helper methods to present various alerts
-extension TaskDetailViewController {
+extension ScavengeDetailViewController {
 
     /// Presents an alert notifying user of photo library access requirement with an option to go to Settings in order to update status.
     func presentGoToSettingsAlert() {
         let alertController = UIAlertController (
             title: "Photo Access Required",
-            message: "In order to post a photo to complete a task, we need access to your photo library. You can allow access in Settings",
+            message: "In order to post a photo to complete a scavenge, we need access to your photo library. You can allow access in Settings",
             preferredStyle: .alert)
 
         let settingsAction = UIAlertAction(title: "Settings", style: .default) { _ in
@@ -194,7 +194,7 @@ extension TaskDetailViewController {
 }
 
 
-extension TaskDetailViewController: PHPickerViewControllerDelegate {
+extension ScavengeDetailViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         
         // Step 3: Get the location metadata from the chosen photo
@@ -237,7 +237,7 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
             
             DispatchQueue.main.async { [weak self] in
                 
-                self?.task.set(image, with:location)
+                self?.scavenge.set(image, with:location)
                 
                 self?.updateUI()
                 
@@ -249,7 +249,7 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
 }
 
 
-extension TaskDetailViewController: MKMapViewDelegate {
+extension ScavengeDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let identifier = TaskAnnotationView.identifier
@@ -261,7 +261,7 @@ extension TaskDetailViewController: MKMapViewDelegate {
             fatalError("Unable to dequeue TaskAnnotationView")
         }
         
-        annotationView.configure(with: task.image)
+        annotationView.configure(with: scavenge.image)
         
         return annotationView
     }

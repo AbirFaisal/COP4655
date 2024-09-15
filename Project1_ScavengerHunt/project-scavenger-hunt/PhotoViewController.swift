@@ -11,11 +11,11 @@ class PhotoViewController: UIViewController {
     
     @IBOutlet weak var selectedImageView: UIImageView!
     
-    var task: Scavenge!
+    var scavenge: Scavenge!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        selectedImageView.image = task.image
+        selectedImageView.image = scavenge.image
     }
 }

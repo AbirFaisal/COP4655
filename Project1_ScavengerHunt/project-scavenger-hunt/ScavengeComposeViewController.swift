@@ -7,13 +7,13 @@
 
 import UIKit
 
-class TaskComposeViewController: UIViewController {
+class ScavengeComposeViewController: UIViewController {
 
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var descriptionField: UITextField!
 
     // When a new task is created, this closure is called, passing in the newly created task.
-    var onComposeTask: ((Task) -> Void)? = nil
+    var onComposeScavenge: ((Scavenge) -> Void)? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +30,8 @@ class TaskComposeViewController: UIViewController {
             return
         }
 
-        let task = Task(title: title, description: description)
-        onComposeTask?(task)
+        let scavenge = Scavenge(title: title, description: description)
+        onComposeScavenge?(scavenge)
         dismiss(animated: true)
     }
 

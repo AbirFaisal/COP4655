@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TaskCell: UITableViewCell {
+class ScavengeCell: UITableViewCell {
 
     @IBOutlet weak var completedImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!

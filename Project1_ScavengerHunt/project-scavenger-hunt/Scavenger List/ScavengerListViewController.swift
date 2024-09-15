@@ -7,14 +7,14 @@
 
 import UIKit
 
-class TaskListViewController: UIViewController {
+class ScavengerListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyStateLabel: UILabel!
 
-    var tasks = [Task]() {
+    var scavenges = [Scavenge]() {
         didSet {
-            emptyStateLabel.isHidden = !tasks.isEmpty
+            emptyStateLabel.isHidden = !scavenges.isEmpty
             tableView.reloadData()
         }
     }
@@ -29,7 +29,7 @@ class TaskListViewController: UIViewController {
 
         // Populate mocked data
         // Comment out this line if you want the app to load without any existing tasks.
-        tasks = Task.mockedTasks
+        scavenges = Scavenge.mockedScavenges
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -48,43 +48,43 @@ class TaskListViewController: UIViewController {
             // we need to access the navigation controller first...
             if let composeNavController = segue.destination as? UINavigationController,
                 // ...then get the actual ComposeViewController via the navController's `topViewController` property.
-               let composeViewController = composeNavController.topViewController as? TaskComposeViewController {
+               let composeViewController = composeNavController.topViewController as? ScavengeComposeViewController {
 
                 // Update the tasks array for any new task passed back via the `onComposeTask` closure.
-                composeViewController.onComposeTask = { [weak self] task in
-                    self?.tasks.append(task)
+                composeViewController.onComposeScavenge = { [weak self] scavenge in
+                    self?.scavenges.append(scavenge)
                 }
             }
 
             // Segue to Detail View Controller
         } else if segue.identifier == "DetailSegue" {
-            if let detailViewController = segue.destination as? TaskDetailViewController,
+            if let detailViewController = segue.destination as? ScavengeDetailViewController,
                 // Get the index path for the current selected table view row.
                let selectedIndexPath = tableView.indexPathForSelectedRow {
 
                 // Get the task associated with the slected index path
-                let task = tasks[selectedIndexPath.row]
+                let scavenge = scavenges[selectedIndexPath.row]
 
                 // Set the selected task on the detail view controller.
-                detailViewController.task = task
+                detailViewController.scavenge = scavenge
             }
         }
     }
 }
 
-extension TaskListViewController: UITableViewDataSource {
+extension ScavengerListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return scavenges.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? TaskCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as? ScavengeCell else {
             fatalError("Unable to dequeue Task Cell")
         }
 
-        cell.configure(with: tasks[indexPath.row])
+        cell.configure(with: scavenges[indexPath.row])
 
         return cell
     }

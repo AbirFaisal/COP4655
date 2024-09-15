@@ -13,7 +13,7 @@
         <!--Tasks-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="TaskListViewController" customModule="lab_task_squirrel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ScavengerListViewController" customModule="project_scavenger_hunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -22,7 +22,7 @@
                                 <rect key="frame" x="0.0" y="91" width="390" height="753"/>
                                 <inset key="separatorInset" minX="48" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="60" id="WLA-WM-GNM" customClass="TaskCell" customModule="lab_task_squirrel" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TaskCell" rowHeight="60" id="WLA-WM-GNM" customClass="ScavengeCell" customModule="project_scavenger_hunt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="390" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="WLA-WM-GNM" id="BXc-Af-m5v">
@@ -97,10 +97,10 @@
             </objects>
             <point key="canvasLocation" x="984.61538461538453" y="13.507109004739336"/>
         </scene>
-        <!--Task Detail View Controller-->
+        <!--Scavenge Detail View Controller-->
         <scene sceneID="X0K-wo-jU3">
             <objects>
-                <viewController id="iXV-Xg-iXn" customClass="TaskDetailViewController" customModule="lab_task_squirrel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="iXV-Xg-iXn" customClass="ScavengeDetailViewController" customModule="project_scavenger_hunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="c5O-Gy-SMd">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +206,7 @@
         <!--Photo View Controller-->
         <scene sceneID="aev-1B-LBa">
             <objects>
-                <viewController id="Dlr-SJ-vdB" customClass="PhotoViewController" customModule="lab_task_squirrel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Dlr-SJ-vdB" customClass="PhotoViewController" customModule="project_scavenger_hunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ryx-sr-bfP">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -249,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="233.84615384615384" y="13.507109004739336"/>
         </scene>
-        <!--New Task-->
+        <!--New Scavenge-->
         <scene sceneID="Ioe-a1-6Ta">
             <objects>
-                <viewController id="fZK-XV-ZSw" customClass="TaskComposeViewController" customModule="lab_task_squirrel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="fZK-XV-ZSw" customClass="TaskComposeViewController" customModule="project_scavenger_hunt" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qrs-jQ-4tq">
                         <rect key="frame" x="0.0" y="0.0" width="390" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -282,7 +282,7 @@
                             <constraint firstItem="e1a-5z-s8t" firstAttribute="leading" secondItem="lzg-S3-CuB" secondAttribute="leading" constant="16" id="zSn-du-kw5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New Task" id="vWC-DD-cn2">
+                    <navigationItem key="navigationItem" title="New Scavenge" id="vWC-DD-cn2">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="fmg-4p-f0B">
                             <connections>
                                 <action selector="didTapCancelButton:" destination="fZK-XV-ZSw" id="tc2-q5-u9F"/>
