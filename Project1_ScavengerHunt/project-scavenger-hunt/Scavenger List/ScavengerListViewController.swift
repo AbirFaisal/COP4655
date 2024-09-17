@@ -28,7 +28,7 @@ class ScavengerListViewController: UIViewController {
         tableView.dataSource = self
 
         // Populate mocked data
-        // Comment out this line if you want the app to load without any existing tasks.
+        // Comment out this line if you want the app to load without any existing scavenges.
         scavenges = Scavenge.mockedScavenges
     }
 
@@ -50,7 +50,7 @@ class ScavengerListViewController: UIViewController {
                 // ...then get the actual ComposeViewController via the navController's `topViewController` property.
                let composeViewController = composeNavController.topViewController as? ScavengeComposeViewController {
 
-                // Update the tasks array for any new task passed back via the `onComposeTask` closure.
+                // Update the scavenges array for any new task passed back via the `onComposeTask` closure.
                 composeViewController.onComposeScavenge = { [weak self] scavenge in
                     self?.scavenges.append(scavenge)
                 }

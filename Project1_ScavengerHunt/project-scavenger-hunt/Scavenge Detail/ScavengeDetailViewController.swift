@@ -32,8 +32,8 @@ class ScavengeDetailViewController: UIViewController {
         super.viewDidLoad()
         // Step 7
         // TODO: Register custom annotation view
-        let tavID = TaskAnnotationView.identifier
-        mapView.register(TaskAnnotationView.self, forAnnotationViewWithReuseIdentifier: tavID)
+        let tavID = ScavengeAnnotationView.identifier
+        mapView.register(ScavengeAnnotationView.self, forAnnotationViewWithReuseIdentifier: tavID)
 
         // TODO: Set mapView delegate
         mapView.delegate = self
@@ -252,11 +252,11 @@ extension ScavengeDetailViewController: PHPickerViewControllerDelegate {
 extension ScavengeDetailViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
-        let identifier = TaskAnnotationView.identifier
+        let identifier = ScavengeAnnotationView.identifier
         
         guard 
             let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier, for: annotation)
-                as? TaskAnnotationView
+                as? ScavengeAnnotationView
         else {
             fatalError("Unable to dequeue TaskAnnotationView")
         }

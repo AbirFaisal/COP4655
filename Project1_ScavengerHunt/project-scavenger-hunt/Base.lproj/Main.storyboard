@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tasks-->
+        <!--Scavenges-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ScavengerListViewController" customModule="project_scavenger_hunt" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,7 +62,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the &quot;+&quot; button to add tasks" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9An-t6-Ghh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap the &quot;+&quot; button to add Scavenges" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9An-t6-Ghh">
                                 <rect key="frame" x="48" y="395" width="294" height="54.333333333333314"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                 <color key="textColor" systemColor="tertiaryLabelColor"/>
@@ -81,7 +81,7 @@
                             <constraint firstItem="Q4w-ie-GaD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tqj-PY-kbK"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Tasks" id="BEp-bB-g30">
+                    <navigationItem key="navigationItem" title="Scavenges" id="BEp-bB-g30">
                         <barButtonItem key="rightBarButtonItem" image="plus" catalog="system" id="mUF-lW-14o">
                             <connections>
                                 <segue destination="Wks-lt-YIn" kind="presentation" identifier="ComposeSegue" id="HQw-jc-QaX"/>
