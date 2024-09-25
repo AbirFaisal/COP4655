@@ -88,6 +88,3 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
-*.DS_Store
-Lab2_insta-parse/lab-insta-parse/api_keys.plist
-Lab3_insta-parse-P2/lab-insta-parse/api_keys.plist
