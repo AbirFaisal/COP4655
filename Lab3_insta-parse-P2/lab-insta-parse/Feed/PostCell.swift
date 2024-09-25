@@ -55,7 +55,17 @@ class PostCell: UITableViewCell {
         }
 
         // TODO: Pt 2 - Show/hide blur view
-
+        if let currentUser = User.current,
+           let lastPostedDate = currentUser.lastPostedDate,
+           let postCreatedDate = post.createdAt,
+           let diffHours = Calendar.current.dateComponents([.hour], from: postCreatedDate, to: lastPostedDate).hour
+        {
+            blurView.isHidden = abs(diffHours) < 24
+        } else {
+            blurView.isHidden = false
+        }
+            
+            
 
     }
 
