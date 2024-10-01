@@ -1,8 +1,11 @@
 # Project 2 - *Name of App Here*
 
-Submitted by: **Your Name Here**
+Submitted by: **Abir Faisal**
 
-**Name of your app** is an app that ... [TODO] 
+**BeReal Clone Part 1** This project is the first part of a two-part project which 
+clones some of the main functionalities of the trending app called BeReal. In this app, 
+users post a photo of what they’re currently doing upon receiving a random notification 
+during the day. Only after posting a photo can the user see their friends’ photos.
 
 Time spent: **X** hours spent in total
 
@@ -10,19 +13,19 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-- [ ] Users see an app icon in the home screen and a styled launch screen.
-- [ ] User can register a new account
-- [ ] User can log in with newly created account
-- [ ] App has a feed of posts when user logs in
-- [ ] User can upload a new post which takes in a picture from photo library and an optional caption    
-- [ ] User is able to logout    
+- [X] Users see an app icon in the home screen and a styled launch screen.
+- [X] User can register a new account
+- [X] User can log in with newly created account
+- [X] App has a feed of posts when user logs in
+- [X] User can upload a new post which takes in a picture from photo library and an optional caption    
+- [X] User is able to logout    
  
 The following **optional** features are implemented:
 
 - [ ] Users can pull to refresh their feed and see a loading indicator
 - [ ] Users can infinite-scroll in their feed to see past the 10 most recent photos
 - [ ] Users can see location and time of photo upload in the feed    
-- [ ] User stays logged in when app is closed and open again    
+- [X] User stays logged in when app is closed and open again    
 
 
 The following **additional** features are implemented:

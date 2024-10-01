@@ -15,6 +15,7 @@ class PostCell: UITableViewCell {
     @IBOutlet private weak var postImageView: UIImageView!
     @IBOutlet private weak var captionLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
+    
 
     // Blur view to blur out "hidden" posts
     @IBOutlet private weak var blurView: UIVisualEffectView!
@@ -53,6 +54,8 @@ class PostCell: UITableViewCell {
         if let date = post.createdAt {
             dateLabel.text = DateFormatter.postFormatter.string(from: date)
         }
+        
+        
 
         // TODO: Pt 2 - Show/hide blur view
         if let currentUser = User.current,
