@@ -40,54 +40,77 @@ struct CardView: View {
     
     var body: some View {
         
+        
+        
         ZStack {
             
-            RoundedRectangle(cornerRadius: 25.0) //
-                .fill(isShowingQuestion ? Color.blue.gradient : Color.indigo.gradient)
-                .shadow(color: .black, radius: 6, x:-2,y:2)
+
             
-            VStack {
-                Text(isShowingQuestion ? "Question" : "Answer")
-                    .bold()
+            ZStack {
                 
-                Rectangle()
-                    .frame(height: 1)
+                RoundedRectangle(cornerRadius: 25.0)
+                    .fill(offset.width < 0 ? .red : .green)
                 
-                Text(isShowingQuestion ? card.question : card.answer)
- 
-            }
-            .font(.title)
-            .foregroundStyle(.white)
-            .padding()
-            
-        }
-        .frame(width: 300, height: 500)
-        .onTapGesture {
-            isShowingQuestion.toggle()
-        }
-        .opacity(3 - abs(offset.width) / swipeThreshold * 3)
-        .rotationEffect(.degrees(offset.width / 20.0))
-        .offset(CGSize(width: offset.width, height: 0))
-        .gesture(DragGesture()
-            .onChanged { gesture in
-                let translation = gesture.translation
-                 print(translation)
-                offset = translation
-            }.onEnded { gesture in  // <-- onEnded called when gesture ends
-
-                if gesture.translation.width > swipeThreshold { // <-- Compare the gesture ended translation value to the swipeThreshold
-                    print("👉 Swiped right")
-                    onSwipedRight?()
-
-                } else if gesture.translation.width < -swipeThreshold {
-                    print("👈 Swiped left")
-                    onSwipedLeft?()
-
-                } else {
-                    print("🚫 Swipe canceled")
+                RoundedRectangle(cornerRadius: 25.0)
+                    .fill(isShowingQuestion ? Color.blue.gradient : Color.indigo.gradient)
+                    .shadow(color: .black, radius: 4, x: -2, y: 2)
+                    .opacity(1 - abs(offset.width) / swipeThreshold)
+                
+                
+                VStack {
+                    Text(isShowingQuestion ? "Question" : "Answer")
+                        .bold()
+                    
+                    Rectangle()
+                        .frame(height: 1)
+                    
+                    Text(isShowingQuestion ? card.question : card.answer)
+     
                 }
+                .font(.title)
+                .foregroundStyle(.white)
+                .padding()
+                
+                
+                
+
+                
+                
             }
-        )
+            .frame(width: 300, height: 500)
+            .onTapGesture {
+                isShowingQuestion.toggle()
+            }
+            .opacity(3 - abs(offset.width) / swipeThreshold * 3)
+            .rotationEffect(.degrees(offset.width / 20.0))
+            .offset(CGSize(width: offset.width, height: 0))
+            .gesture(DragGesture()
+                .onChanged { gesture in
+                    let translation = gesture.translation
+                     print(translation)
+                    offset = translation
+                }.onEnded { gesture in  // <-- onEnded called when gesture ends
+
+                    if gesture.translation.width > swipeThreshold { // <-- Compare the gesture ended translation value to the swipeThreshold
+                        print("👉 Swiped right")
+                        onSwipedRight?()
+
+                    } else if gesture.translation.width < -swipeThreshold {
+                        print("👈 Swiped left")
+                        onSwipedLeft?()
+
+                    } else {
+                        print("🚫 Swipe canceled")
+                    }
+                }
+            )
+            //end
+            
+
+            
+            
+        }
+        
         
     }
     
