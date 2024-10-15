@@ -36,7 +36,7 @@
 		CB69974C2910F704007EDA6B /* Filmotype-Jade.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Filmotype-Jade.otf"; sourceTree = "<group>"; };
 		CB6997502911044D007EDA6B /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		CB6997522911354B007EDA6B /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
-		CB73D391290E3B4A00C12538 /* lab-insta-parse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "lab-insta-parse.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB73D391290E3B4A00C12538 /* project-bereal-clone-p2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "project-bereal-clone-p2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB73D394290E3B4A00C12538 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CB73D396290E3B4A00C12538 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CB73D398290E3B4A00C12538 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -110,7 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				C3A9DC702CB21BDD00AD0689 /* README.md */,
-				CB73D393290E3B4A00C12538 /* lab-insta-parse */,
+				CB73D393290E3B4A00C12538 /* project-bereal-clone-p2 */,
 				CB73D392290E3B4A00C12538 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -118,12 +118,12 @@
 		CB73D392290E3B4A00C12538 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				CB73D391290E3B4A00C12538 /* lab-insta-parse.app */,
+				CB73D391290E3B4A00C12538 /* project-bereal-clone-p2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		CB73D393290E3B4A00C12538 /* lab-insta-parse */ = {
+		CB73D393290E3B4A00C12538 /* project-bereal-clone-p2 */ = {
 			isa = PBXGroup;
 			children = (
 				C35A4B052CA37C8A00D76DAE /* api_keys.plist */,
@@ -140,7 +140,7 @@
 				CB73D3A2290E3B4C00C12538 /* Info.plist */,
 				CB6997472910E7E3007EDA6B /* Fonts */,
 			);
-			path = "lab-insta-parse";
+			path = "project-bereal-clone-p2";
 			sourceTree = "<group>";
 		};
 		CB7896FB29371C2300635932 /* Models */ = {
@@ -155,9 +155,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		CB73D390290E3B4A00C12538 /* lab-insta-parse */ = {
+		CB73D390290E3B4A00C12538 /* project-bereal-clone-p2 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = CB73D3A5290E3B4C00C12538 /* Build configuration list for PBXNativeTarget "lab-insta-parse" */;
+			buildConfigurationList = CB73D3A5290E3B4C00C12538 /* Build configuration list for PBXNativeTarget "project-bereal-clone-p2" */;
 			buildPhases = (
 				CB73D38D290E3B4A00C12538 /* Sources */,
 				CB73D38E290E3B4A00C12538 /* Frameworks */,
@@ -167,13 +167,13 @@
 			);
 			dependencies = (
 			);
-			name = "lab-insta-parse";
+			name = "project-bereal-clone-p2";
 			packageProductDependencies = (
 				CB7896F629371AAE00635932 /* ParseSwift */,
 				CB7896F929371B4600635932 /* AlamofireImage */,
 			);
 			productName = "lab-insta-parse";
-			productReference = CB73D391290E3B4A00C12538 /* lab-insta-parse.app */;
+			productReference = CB73D391290E3B4A00C12538 /* project-bereal-clone-p2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -191,7 +191,7 @@
 					};
 				};
 			};
-			buildConfigurationList = CB73D38C290E3B4A00C12538 /* Build configuration list for PBXProject "lab-insta-parse" */;
+			buildConfigurationList = CB73D38C290E3B4A00C12538 /* Build configuration list for PBXProject "project-bereal-clone-p2" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -208,7 +208,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				CB73D390290E3B4A00C12538 /* lab-insta-parse */,
+				CB73D390290E3B4A00C12538 /* project-bereal-clone-p2 */,
 			);
 		};
 /* End PBXProject section */
@@ -393,7 +393,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MA6H73S726;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "lab-insta-parse/Info.plist";
+				INFOPLIST_FILE = "project-bereal-clone-p2/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -421,7 +421,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = MA6H73S726;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "lab-insta-parse/Info.plist";
+				INFOPLIST_FILE = "project-bereal-clone-p2/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -443,7 +443,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		CB73D38C290E3B4A00C12538 /* Build configuration list for PBXProject "lab-insta-parse" */ = {
+		CB73D38C290E3B4A00C12538 /* Build configuration list for PBXProject "project-bereal-clone-p2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB73D3A3290E3B4C00C12538 /* Debug */,
@@ -452,7 +452,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		CB73D3A5290E3B4C00C12538 /* Build configuration list for PBXNativeTarget "lab-insta-parse" */ = {
+		CB73D3A5290E3B4C00C12538 /* Build configuration list for PBXNativeTarget "project-bereal-clone-p2" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CB73D3A6290E3B4C00C12538 /* Debug */,
