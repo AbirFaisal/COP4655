@@ -15,7 +15,7 @@ The following **required** functionality is completed:
 - [X] Users are not able to see other users’ photos until they upload their own.
 - [ ] Users can intereact with posts via comments, comments will have user data such as username and name
 - [ ] Posts have a time and location attached to them
-- [ ] Users are not able to see other photos until they post their own (within 24 hours)    
+- [X] Users are not able to see other photos until they post their own (within 24 hours)    
  
 The following **optional** features are implemented:
 

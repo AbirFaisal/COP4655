@@ -343,7 +343,7 @@
                                             <outlet property="commentText" destination="M9E-aC-brf" id="2xS-Qp-MXn"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCommentCell" id="9Db-wV-Q0A" customClass="AddCommentsCell">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddCommentCell" id="9Db-wV-Q0A" customClass="AddCommentCell" customModule="project_bereal_clone_p2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="621" width="390" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9Db-wV-Q0A" id="Dwq-Pw-WYA">
@@ -359,7 +359,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="addCommentTextField" destination="HBK-qO-GK5" id="9Qp-nh-cee"/>
+                                            <outlet property="addCommentTextField" destination="HBK-qO-GK5" id="B1H-zX-s4g"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

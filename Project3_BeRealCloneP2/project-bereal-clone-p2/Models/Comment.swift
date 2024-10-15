@@ -6,3 +6,21 @@
 //
 
 import Foundation
+
+import ParseSwift
+
+
+
+struct Comment: ParseObject {
+    var objectId: String?
+    var createdAt: Date?
+    var updatedAt: Date?
+    var ACL: ParseACL?
+    var originalData: Data?
+
+
+
+    var user: User?
+    var text: String?
+    var post: Post?
+}

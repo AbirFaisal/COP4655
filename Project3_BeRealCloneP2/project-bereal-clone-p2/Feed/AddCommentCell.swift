@@ -14,8 +14,8 @@ class AddCommentCell: UITableViewCell {
 
 
     @IBOutlet weak var addCommentTextField: UITextField!
-
     
+
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -136,7 +136,7 @@ extension FeedViewController: UITableViewDataSource {
             }
             return commentCell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentsCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentCell", for: indexPath)
             return cell
         }
     }
