@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C33020E42CBE6A3E0011EF40 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C33020E32CBE6A3E0011EF40 /* Comment.swift */; };
 		C35A4B062CA37C8A00D76DAE /* api_keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = C35A4B052CA37C8A00D76DAE /* api_keys.plist */; };
+		C35EA4C62CBE6162005D923D /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C35EA4C52CBE6162005D923D /* CommentCell.swift */; };
 		C3A9DC712CB21BDD00AD0689 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = C3A9DC702CB21BDD00AD0689 /* README.md */; };
 		CB13E51F2913A16C008F45BB /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB13E51E2913A16C008F45BB /* PostCell.swift */; };
 		CB13E5212913B10B008F45BB /* DateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB13E5202913B10B008F45BB /* DateFormatter+Extensions.swift */; };
@@ -29,7 +31,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C33020E32CBE6A3E0011EF40 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		C35A4B052CA37C8A00D76DAE /* api_keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = api_keys.plist; sourceTree = "<group>"; };
+		C35EA4C52CBE6162005D923D /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		C3A9DC702CB21BDD00AD0689 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		CB13E51E2913A16C008F45BB /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
 		CB13E5202913B10B008F45BB /* DateFormatter+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extensions.swift"; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 			children = (
 				CB6997522911354B007EDA6B /* FeedViewController.swift */,
 				CB13E51E2913A16C008F45BB /* PostCell.swift */,
+				C35EA4C52CBE6162005D923D /* CommentCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 			children = (
 				CB7896FC29371C3C00635932 /* User.swift */,
 				CB7896FE29371C4900635932 /* Post.swift */,
+				C33020E32CBE6A3E0011EF40 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -242,9 +248,11 @@
 				CB6997532911354B007EDA6B /* FeedViewController.swift in Sources */,
 				CB7896FD29371C3C00635932 /* User.swift in Sources */,
 				CB6997512911044D007EDA6B /* SignUpViewController.swift in Sources */,
+				C33020E42CBE6A3E0011EF40 /* Comment.swift in Sources */,
 				CB13E5212913B10B008F45BB /* DateFormatter+Extensions.swift in Sources */,
 				CB73D397290E3B4A00C12538 /* SceneDelegate.swift in Sources */,
 				CB7896FF29371C4900635932 /* Post.swift in Sources */,
+				C35EA4C62CBE6162005D923D /* CommentCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

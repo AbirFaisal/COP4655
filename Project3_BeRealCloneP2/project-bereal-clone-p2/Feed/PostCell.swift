@@ -44,8 +44,7 @@ class PostCell: UITableViewCell {
                     // Set image view image with fetched image
                     self?.postImageView.image = image
 
-                    //TODO Set location
-
+                    self?.locationLabel.text = "No Location Metadata"
 
                 case .failure(let error):
                     print("❌ Error fetching image: \(error.localizedDescription)")

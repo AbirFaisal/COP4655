@@ -52,7 +52,7 @@ class FeedViewController: UIViewController {
         let yesterdayDate = Calendar.current.date(byAdding: .day, value: (-1), to: Date())!
 
         let query = Post.query()
-            .include("user")
+            .include("user", "comments", "comments.user")
             .order([.descending("createdAt")])
             .where("createdAt" >= yesterdayDate)
             .limit(10)
@@ -99,16 +99,48 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+
+        let post = posts[section]
+        let comments = post.comments
+
+        return (comments?.count ?? 0) + 2
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return posts.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else {
-            return UITableViewCell()
+
+        let post = posts[indexPath.section]
+        let comments = post.comments ?? []
+
+        if indexPath.row == 0 {
+            guard let postCell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell
+            else {
+                return UITableViewCell()
+            }
+            postCell.configure(with: posts[indexPath.row])
+            return postCell
         }
-        cell.configure(with: posts[indexPath.row])
-        return cell
+        else if (indexPath.row <= comments.count) {
+            guard let commentCell = tableView.dequeueReusableCell(withIdentifier: "CommentCell", for: indexPath) as? CommentCell
+            else {
+                return UITableViewCell()
+            }
+
+            if (comments.count > 0 ) {
+                let comment = comments[indexPath.row - 1]
+                commentCell.commentName.text = comment.user?.username
+                comment.commentText.text = comment.text
+            }
+            return commentCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddCommentsCell", for: indexPath)
+            return cell
+        }
     }
+
 }
 
 extension FeedViewController: UITableViewDelegate { }
