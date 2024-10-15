@@ -4,7 +4,7 @@ Submitted by: **Abir Faisal**
 
 **BeReal Pt. 2** is the second part of the BeReal clone project where you will add persistence and some cool BeReal functionality to the app.
 
-Time spent: **5** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 

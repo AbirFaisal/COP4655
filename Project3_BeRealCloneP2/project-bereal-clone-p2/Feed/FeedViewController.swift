@@ -132,7 +132,7 @@ extension FeedViewController: UITableViewDataSource {
             if (comments.count > 0 ) {
                 let comment = comments[indexPath.row - 1]
                 commentCell.commentName.text = comment.user?.username
-                comment.commentText.text = comment.text
+                commentCell.commentText.text = comment.text
             }
             return commentCell
         } else {
