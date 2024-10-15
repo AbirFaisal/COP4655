@@ -16,6 +16,10 @@ class PostCell: UITableViewCell {
     @IBOutlet private weak var captionLabel: UILabel!
     @IBOutlet private weak var dateLabel: UILabel!
 
+    @IBOutlet weak var locationLabel: UILabel!
+
+
+
     // Blur view to blur out "hidden" posts
     @IBOutlet private weak var blurView: UIVisualEffectView!
 
@@ -39,6 +43,10 @@ class PostCell: UITableViewCell {
                 case .success(let image):
                     // Set image view image with fetched image
                     self?.postImageView.image = image
+
+                    //TODO Set location
+
+
                 case .failure(let error):
                     print("❌ Error fetching image: \(error.localizedDescription)")
                     break
