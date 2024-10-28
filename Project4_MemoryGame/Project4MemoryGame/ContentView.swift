@@ -39,9 +39,6 @@ struct ContentView: View {
     }
 
 
-
-
-
     var body: some View {
 
 
@@ -67,11 +64,10 @@ struct ContentView: View {
 
                 LazyVGrid(columns: columns) {
 
-                    ForEach(0..<6) { index in
+                    ForEach(0..<selectedSize, id: \.self) { index in
                         let cm = CardModel(id: index, content: Image(systemName: "heart.fill"))
                         CardView(id: index, model: cm)
                     }
-
 
 //                    ForEach(cards) { card in
 //                        Text("hello")
