@@ -9,7 +9,14 @@ import SwiftUI
 
 
 class CardModel: ObservableObject {
-    var id: Int = 0
+
+    var id: Int
+
+    init(id: Int) {
+        self.id = id
+//        self.content = possibleEmojis.randomElement()!
+    }
+
 
     var content: String = {
         let possibleEmojis = ["🎉","🍎","🌸","🚗","🔔","🏈","🍕","🌎","🦄"]
@@ -67,7 +74,7 @@ struct CardView: Identifiable, View {
 
 #Preview {
 
-    var cm = CardModel()
+    var cm = CardModel(id:0)
 
     CardView(id: 0, model: cm)
 }

@@ -18,8 +18,11 @@ import SwiftUI
 struct ContentView: View {
 
 
-    @State private var cards = [CardView]()
-    @State var selectedSize: Int = 6
+//    @State private var cards = [CardView]()
+
+    @State var cards: [CardModel] = []
+
+    @State private var selectedSize: Int = 6
 
     let columns = [
         GridItem(.flexible()),
@@ -29,15 +32,10 @@ struct ContentView: View {
 
 
     init() {
-        for index in 0..<selectedSize {
-//            let cm = CardModel(id: index, content: Image(systemName: "heart.fill"))
-
-            let cm = CardModel()
-
-            let cv = CardView(id: index, model: cm)
-             self.cards.append(cv)
-         }
-
+//        for index in 0..<11 {
+//            let cm = CardModel()
+//             self.cards.append(cm)
+//         }
     }
 
 
@@ -51,13 +49,25 @@ struct ContentView: View {
                     Text("Size 3").tag(3)
                     Text("Size 6").tag(6)
                     Text("Size 10").tag(10)
-                }.onChange(of: selectedSize) { newValue in
-                    print("New Value: \(newValue)")
-                    //TODO reset game with new value
+                }.onChange(of: self.selectedSize) { newValue in
+
+                    cards = []
+                    for index in 0..<newValue {
+                        let cm = CardModel(id: index)
+                        self.cards.append(cm)
+                    }
+
+                    print("New Value: \(newValue) \(cards.count)")
+
                 }
 
                 Spacer()
                 Button("Reset Game") {
+                    cards = []
+                    for index in 0..<selectedSize {
+                        let cm = CardModel(id: index)
+                        self.cards.append(cm)
+                    }
                 }
             }
 
@@ -66,18 +76,15 @@ struct ContentView: View {
 
                 LazyVGrid(columns: columns) {
 
-                    ForEach(0..<selectedSize, id: \.self) { index in
+                    ForEach(cards, id: \.id) { card in
 
-//                        let cm = CardModel(id: index, content: Image(systemName: "questionmark"))
-
-                        let cm = CardModel()
-
-
-                        CardView(id: index, model: cm)
-                        .onTapGesture {
-                                print("Card Tapped: \(index)")
-                            }
+                        CardView(id: card.id, model: card)
+                            .onTapGesture {
+                                    print("Card Tapped: \(card)")
+                                }
                     }
+
+
 
                 }
             }
