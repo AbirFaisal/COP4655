@@ -41,12 +41,25 @@ struct ContentView: View {
             
             if cards[id0].content == cards[id1].content {
                 print("Match Found")
-                cards[id0].isMatched.toggle()
-                cards[id1].isMatched.toggle()
+
+                // Add a small delay so that the cards are not immedietly removed.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    withAnimation {
+                        cards[id0].isMatched.toggle()
+                        cards[id1].isMatched.toggle()
+                    }
+                }
+
             } else {
                 print("No Match")
-                cards[id0].isFaceUp.toggle()
-                cards[id1].isFaceUp.toggle()
+
+                // Add a small delay so that the cards are not immedietly flipped.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    withAnimation {
+                        cards[id0].isFaceUp.toggle()
+                        cards[id1].isFaceUp.toggle()
+                    }
+                }
             }
         }
 
@@ -75,6 +88,7 @@ struct ContentView: View {
                     Text("Size 3").tag(3)
                     Text("Size 6").tag(6)
                     Text("Size 10").tag(10)
+                    Text("Size 15").tag(10)
                 }.onChange(of: self.selectedSize) {
                     resetGame()
                     print("New Value: \(selectedSize) \(cards.count)")

@@ -26,7 +26,7 @@ struct CardView: Identifiable, View {
             RoundedRectangle(cornerRadius: 20)
                 .fill(Color.blue)
                 .shadow(radius: 10)
-                .frame(width: 100, height: 150)
+                .frame(width: 120, height: 200)
                 .onTapGesture {
                     withAnimation {
                         model.isFaceUp.toggle()

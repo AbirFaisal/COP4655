@@ -14,19 +14,17 @@ class CardModel: ObservableObject {
 
     init(id: Int) {
         self.id = id
-//        self.content = possibleEmojis.randomElement()!
     }
 
-
     var content: String = {
-        let possibleEmojis = ["🎉","🍎","🌸","🚗","🔔","🏈","🍕","🌎","🦄"]
+        let possibleEmojis = ["🎉","🌸","🚗","🍕","🌎","🦄"]
 
         return possibleEmojis.randomElement()!
     }()
 
 
     @Published var isFaceUp: Bool = false
-
+    
     @Published var isMatched: Bool = false
 
     var defaultContent = Image(systemName: "questionmark")
