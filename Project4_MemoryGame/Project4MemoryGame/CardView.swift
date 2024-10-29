@@ -19,6 +19,9 @@ class CardModel: ObservableObject {
 
 
     @Published var isFaceUp: Bool = false
+
+    @Published var isMatched: Bool = false
+
     var defaultContent = Image(systemName: "questionmark")
 }
 
@@ -36,7 +39,9 @@ struct CardView: Identifiable, View {
                 .shadow(radius: 10)
                 .frame(width: 100, height: 150)
                 .onTapGesture {
-                    model.isFaceUp.toggle()
+                    withAnimation {
+                        model.isFaceUp.toggle()
+                    }
                 }
 
             if model.isFaceUp {
@@ -50,6 +55,11 @@ struct CardView: Identifiable, View {
                     .foregroundColor(.white)
             }
         }
+        .rotation3DEffect(
+            .degrees(model.isFaceUp ? 180 : 0),
+            axis: (x: 0, y: 1, z: 0)
+        )
+        .opacity(model.isMatched ? 0 : 1)
 
     }
 
