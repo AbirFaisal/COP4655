@@ -38,6 +38,13 @@ struct CardView: Identifiable, View {
 
     @ObservedObject var model: CardModel
 
+
+    var action: (() -> Void)
+    private func performAction() {
+        action()
+    }
+
+
     var body: some View {
 
         ZStack {
@@ -49,6 +56,7 @@ struct CardView: Identifiable, View {
                     withAnimation {
                         model.isFaceUp.toggle()
                     }
+                    performAction()
                 }
 
             if model.isFaceUp {
@@ -76,5 +84,5 @@ struct CardView: Identifiable, View {
 
     var cm = CardModel(id:0)
 
-    CardView(id: 0, model: cm)
+    CardView(id: 0, model: cm, action: {})
 }

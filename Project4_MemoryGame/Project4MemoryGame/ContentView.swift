@@ -20,6 +20,24 @@ struct ContentView: View {
         GridItem(.flexible())
     ]
 
+    func checkGameState() {
+        print("Checking Game State \(cards)")
+
+        
+    }
+
+    func resetGame() {
+        print("Resetting Game")
+        cards = []
+        for index in 0..<selectedSize {
+            let cm = CardModel(id: index)
+            self.cards.append(cm)
+        }
+    }
+
+    init() {
+    }
+
     var body: some View {
 
 
@@ -31,21 +49,13 @@ struct ContentView: View {
                     Text("Size 6").tag(6)
                     Text("Size 10").tag(10)
                 }.onChange(of: self.selectedSize) {
-                    cards = []
-                    for index in 0..<selectedSize {
-                        let cm = CardModel(id: index)
-                        self.cards.append(cm)
-                    }
+                    resetGame()
                     print("New Value: \(selectedSize) \(cards.count)")
                 }
 
                 Spacer()
                 Button("Reset Game") {
-                    cards = []
-                    for index in 0..<selectedSize {
-                        let cm = CardModel(id: index)
-                        self.cards.append(cm)
-                    }
+                    resetGame()
                 }
             }
 
@@ -54,16 +64,24 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
 
                     ForEach(cards, id: \.id) { card in
-                        CardView(id: card.id, model: card)
+                        CardView(id: card.id, model: card) {
+                            print("Card with id \(card.id) was tapped")
+                            checkGameState()
+                        }
                     }
-
                 }
+
+            }.onTapGesture {
+                print("Card Tapped")
             }
 
         }
         .padding()
+        .onAppear(perform: resetGame)
+
     }
 }
+
 
 #Preview {
     ContentView()
