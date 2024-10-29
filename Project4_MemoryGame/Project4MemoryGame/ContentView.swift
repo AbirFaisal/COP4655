@@ -30,7 +30,9 @@ struct ContentView: View {
 
     init() {
         for index in 0..<selectedSize {
-            let cm = CardModel(id: index, content: Image(systemName: "heart.fill"))
+//            let cm = CardModel(id: index, content: Image(systemName: "heart.fill"))
+
+            let cm = CardModel()
 
             let cv = CardView(id: index, model: cm)
              self.cards.append(cv)
@@ -65,13 +67,18 @@ struct ContentView: View {
                 LazyVGrid(columns: columns) {
 
                     ForEach(0..<selectedSize, id: \.self) { index in
-                        let cm = CardModel(id: index, content: Image(systemName: "heart.fill"))
+
+//                        let cm = CardModel(id: index, content: Image(systemName: "questionmark"))
+
+                        let cm = CardModel()
+
+
                         CardView(id: index, model: cm)
+                        .onTapGesture {
+                                print("Card Tapped: \(index)")
+                            }
                     }
 
-//                    ForEach(cards) { card in
-//                        Text("hello")
-//                    }
                 }
             }
 
