@@ -8,40 +8,15 @@
 import SwiftUI
 
 
-class CardModel: ObservableObject {
-
-    var id: Int
-
-    init(id: Int) {
-        self.id = id
-//        self.content = possibleEmojis.randomElement()!
-    }
-
-
-    var content: String = {
-        let possibleEmojis = ["🎉","🍎","🌸","🚗","🔔","🏈","🍕","🌎","🦄"]
-
-        return possibleEmojis.randomElement()!
-    }()
-
-
-    @Published var isFaceUp: Bool = false
-
-    @Published var isMatched: Bool = false
-
-    var defaultContent = Image(systemName: "questionmark")
-}
-
-
 struct CardView: Identifiable, View {
     var id: Int
 
     @ObservedObject var model: CardModel
 
 
-    var action: (() -> Void)
+    var action: (() -> Void)?
     private func performAction() {
-        action()
+        action!()
     }
 
 

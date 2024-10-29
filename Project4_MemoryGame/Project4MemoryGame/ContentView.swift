@@ -21,9 +21,36 @@ struct ContentView: View {
     ]
 
     func checkGameState() {
-        print("Checking Game State \(cards)")
+        print("Checking Game State")
 
-        
+        var flippedCardIDs: [Int] = []
+
+        //Check which cards are flipped
+        for card in cards {
+            if card.isFaceUp {
+                if card.isMatched == false {
+                    flippedCardIDs.append(card.id)
+                }
+            }
+        }
+
+        //Check if flipped cards match
+        if flippedCardIDs.count == 2 {
+            let id0 = flippedCardIDs[0]
+            let id1 = flippedCardIDs[1]
+            
+            if cards[id0].content == cards[id1].content {
+                print("Match Found")
+                cards[id0].isMatched.toggle()
+                cards[id1].isMatched.toggle()
+            } else {
+                print("No Match")
+                cards[id0].isFaceUp.toggle()
+                cards[id1].isFaceUp.toggle()
+            }
+        }
+
+
     }
 
     func resetGame() {
