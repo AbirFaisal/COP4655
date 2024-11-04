@@ -19,7 +19,7 @@ class ContentModel: ObservableObject {
     @Published var category: Int = 0
     @Published var difficulty: Double = 0
 
-    
+
     enum difficultyLevel: Double {
         case Easy = 1
         case Medium = 2
@@ -32,9 +32,10 @@ struct ContentView: View {
     @StateObject var model: ContentModel = .init()
 
     var body: some View {
+        Text("Trivia Game")
+            .font(.largeTitle)
 
-        VStack {
-            Text("Trivia Game")
+        NavigationStack {
 
             Form {
 //                TextField("Number of Questions", text: $model.numberOfQuestions2)
@@ -79,14 +80,26 @@ struct ContentView: View {
                     Text("30 Seconds").tag(30)
                 })
 
+
+
             }
 
             Spacer()
 
 
-            NavigationLink(destination: Text("Destination")) {
-                Text("Navigation Link")
+            //TODO change destination
+            NavigationLink(destination: Text("TriviaView()")) {
+                ZStack
+                {
+                    Rectangle()
+                        .frame(width: 250, height: 50)
+                        .cornerRadius(20)
+
+                    Text("Start Game")
+                        .foregroundColor(Color.white)
+                }
             }
+
         }
         .padding()
         .onAppear() {
