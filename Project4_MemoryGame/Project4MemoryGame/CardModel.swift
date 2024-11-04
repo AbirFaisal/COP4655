@@ -17,7 +17,7 @@ class CardModel: ObservableObject {
     }
 
     var content: String = {
-        let possibleEmojis = ["🎉","🌸","🚗","🍕","🌎","🦄"]
+        let possibleEmojis = ["🎉","🌸","🚗","🍕","🦄"]
 
         return possibleEmojis.randomElement()!
     }()

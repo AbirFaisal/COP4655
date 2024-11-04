@@ -88,7 +88,7 @@ struct ContentView: View {
                     Text("Size 3").tag(3)
                     Text("Size 6").tag(6)
                     Text("Size 10").tag(10)
-                    Text("Size 15").tag(10)
+                    Text("Size 15").tag(15)
                 }.onChange(of: self.selectedSize) {
                     resetGame()
                     print("New Value: \(selectedSize) \(cards.count)")

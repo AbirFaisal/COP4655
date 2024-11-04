@@ -1,8 +1,8 @@
-# Project 4 - *Name of App Here*
+# Project 4 - *Memory Game*
 
 Submitted by: **Abir Faisal**
 
-**Project 4: Memory Game** is an app that ... [TODO] 
+**Project 4: Memory Game** is an app that ... Allows a user to tap on a card. If the cards match, then it disappears. 
 
 Time spent: **10** hours spent in total
 
@@ -39,6 +39,8 @@ The following **additional** features are implemented:
 - [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
+
+![](Demo.gif)
 
 Here's a walkthrough of implemented user stories:
 
