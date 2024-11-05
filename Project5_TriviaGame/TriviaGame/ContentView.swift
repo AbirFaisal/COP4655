@@ -25,7 +25,13 @@ class ContentModel: ObservableObject {
         case Medium = 2
         case Hard = 3
     }
+
+    @Published var selectedType = 0
+    @Published var timerDuration = 10
+
 }
+
+//TODO ContentModelView
 
 struct ContentView: View {
 
@@ -61,25 +67,17 @@ struct ContentView: View {
                 Text("Difficulty \(ContentModel.difficultyLevel(rawValue: model.difficulty) ?? .Easy)")
                 Slider(value: $model.difficulty, in: 1...3, step: 1.0)
 
-                HStack
-                {
-                    Text("Select Type")
 
-                    Menu("Select Type", content: {
-                        Text("Multiple Choice")
-                        Text("True/False")
-                    })
+                Picker("Select Type", selection: $model.selectedType) {
+                    Text("Multiple Choice").tag("multipleChoice").tag(0)
+                    Text("True/False").tag("trueFalse").tag(1)
                 }
 
-                Text("Timer Duration")
-
-                //TODO change to picker
-                Menu("Select Timer Duration", content: {
+                Picker("Timer Duration", selection: $model.timerDuration) {
                     Text("10 Seconds").tag(10)
                     Text("20 Seconds").tag(20)
                     Text("30 Seconds").tag(30)
-                })
-
+                }
 
 
             }
