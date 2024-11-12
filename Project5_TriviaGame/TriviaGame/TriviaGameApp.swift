@@ -11,7 +11,9 @@ import SwiftUI
 struct TriviaGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            var model = ContentModel()
+
+            ContentView(viewModel: ContentViewModel(model: model))
         }
     }
 }

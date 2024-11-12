@@ -16,7 +16,9 @@ class ContentModel: ObservableObject {
         }
     }
 
-    @Published var category: Int = 0
+    @Published var categories: [Category] = []
+    @Published var selectedCategory: Int?
+
     @Published var difficulty: Double = 0
 
 
@@ -31,49 +33,151 @@ class ContentModel: ObservableObject {
 
 }
 
-//TODO ContentModelView
+struct Category: Codable, Identifiable {
+    let id: Int
+    var name: String
+
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+    }
+
+    var identifier: Int { id }
+}
+
+class ContentViewModel: ObservableObject {
+
+    @Published var model: ContentModel = .init()
+    @Published var trivia: TriviaModel
+
+    init(model: ContentModel) {
+        self.model = model
+
+        let mockedQuesiton1 = QuestionModel(
+            question: "What is the capital of France?",
+            answers: ["Paris", "London", "Berlin", "Madrid"],
+            correctAnswer: "Paris")
+
+        let mockedQuesiton2 = QuestionModel(
+            question: "What is the capital of Britan?",
+            answers: ["Paris", "London", "Berlin", "Madrid"],
+            correctAnswer: "London")
+
+        self.trivia = TriviaModel(questions: [mockedQuesiton1, mockedQuesiton2])
+
+    }
+
+    func fetchCategories() {
+        print("fetchCategories()")
+
+        let url = URL(string: "https://opentdb.com/api_category.php")!
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data else { return }
+
+            do {
+                print("Fetched Categories")
+
+                // Decode
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+
+                let categoriesArr = jsonObject!["trivia_categories"] as? [[String: Any]]
+
+
+                for obj in categoriesArr! {
+                    let id = obj["id"] as! Int
+                    let name = obj["name"] as! String
+
+                    self.model.categories.append(Category(id:id, name: name))
+                }
+
+//                print(self.model.categories)
+
+                DispatchQueue.main.async {
+                    print(self.model.categories)
+
+                }
+            } catch {
+                print(error)
+            }
+        }.resume() //TODO find out what this does
+    }
+
+}
 
 struct ContentView: View {
 
-    @StateObject var model: ContentModel = .init()
+    @StateObject var viewModel: ContentViewModel
+    @State private var categories: [Category] = []
+
+
+    func fetchCategories() {
+        print("fetchCategories()")
+
+        let url = URL(string: "https://opentdb.com/api_category.php")!
+
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data else { return }
+
+            do {
+                print("Fetched Categories")
+
+                // Decode
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+
+                let categoriesArr = jsonObject!["trivia_categories"] as? [[String: Any]]
+
+
+                for obj in categoriesArr! {
+                    let id = obj["id"] as! Int
+                    let name = obj["name"] as! String
+
+                    self.categories.append(Category(id:id, name: name))
+                }
+
+//                print(self.model.categories)
+
+//                DispatchQueue.main.async {
+//                    print(self.model.categories)
+//                }
+            } catch {
+                print(error)
+            }
+        }.resume() //TODO find out what this does
+    }
+
+
+
 
     var body: some View {
+
         Text("Trivia Game")
             .font(.largeTitle)
 
         NavigationStack {
 
             Form {
-//                TextField("Number of Questions", text: $model.numberOfQuestions2)
-//                    .keyboardType(.numberPad)
-
-                TextField("Number of Questions", text: $model.numberOfQuestionsString)
+                TextField("Number of Questions", text: $viewModel.model.numberOfQuestionsString)
                     .keyboardType(.numberPad)
 
 
-                Text("Select Category")
-
-                //TODO change to picker
-                Menu("Select Category", content: {
-                    Text("General Knowledge").tag(1)
-                    Text("Science & Nature").tag(2)
-                    Text("History").tag(3)
-                    Text("Geography").tag(4)
-                    Text("Entertainment").tag(5)
-                    Text("Sports").tag(6)
-                    Text("Mythology").tag(7)
-                })
-
-                Text("Difficulty \(ContentModel.difficultyLevel(rawValue: model.difficulty) ?? .Easy)")
-                Slider(value: $model.difficulty, in: 1...3, step: 1.0)
+                Picker("Select Category", selection: $viewModel.model.selectedCategory) {
+                    ForEach(categories) { category in
+                        Text("\(category.name)").tag(category.id)
+                    }
+                }
 
 
-                Picker("Select Type", selection: $model.selectedType) {
+                Text("Difficulty \(ContentModel.difficultyLevel(rawValue: viewModel.model.difficulty) ?? .Easy)")
+                Slider(value: $viewModel.model.difficulty, in: 1...3, step: 1.0)
+
+
+                Picker("Select Type", selection: $viewModel.model.selectedType) {
                     Text("Multiple Choice").tag("multipleChoice").tag(0)
                     Text("True/False").tag("trueFalse").tag(1)
                 }
 
-                Picker("Timer Duration", selection: $model.timerDuration) {
+                Picker("Timer Duration", selection: $viewModel.model.timerDuration) {
                     Text("10 Seconds").tag(10)
                     Text("20 Seconds").tag(20)
                     Text("30 Seconds").tag(30)
@@ -85,8 +189,9 @@ struct ContentView: View {
             Spacer()
 
 
+
             //TODO change destination
-            NavigationLink(destination: Text("TriviaView()")) {
+            NavigationLink(destination: TriviaView(model: viewModel.trivia)) {
                 ZStack
                 {
                     Rectangle()
@@ -101,11 +206,15 @@ struct ContentView: View {
         }
         .padding()
         .onAppear() {
+            print("onAppear was called")
+            fetchCategories()
 
         }
     }
 }
 
 #Preview {
-    ContentView()
+    var model = ContentModel()
+
+    ContentView(viewModel: ContentViewModel(model: model))
 }

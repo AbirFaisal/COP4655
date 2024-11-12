@@ -28,29 +28,52 @@ class TriviaModel: ObservableObject {
 
     init(questions: [QuestionModel]) {
         self.questions = questions
+        self.currentQuestion = questions.first
     }
+}
+
+class TriviaViewModel: ObservableObject {
+
 }
 
 struct TriviaView: View {
 
     @State var model: TriviaModel
-    
+
+    func nextQuestion() {
+        model.currentQuestion = model.questions.randomElement()
+    }
+
     var body: some View {
-        Text("Time Remaining:")
 
-        Text("Score: \(model.score)")
 
-        Text("Question: \(model.currentQuestion?.question ?? "")")
+        VStack {
+            Text("Time Remaining:")
 
-        Text("Answers: \(model.currentQuestion?.answers ?? [])")
+            Text("Score: \($model.score.wrappedValue)")
 
-        ScrollView {
-            LazyVStack(alignment: .leading, spacing: 10) {
+            Spacer()
+
+            Text("Question: \(model.currentQuestion?.question ?? "")")
+                .font(.largeTitle)
+
+            Spacer()
+
+            VStack(alignment: .center, spacing: 10) {
+
                 ForEach(model.currentQuestion?.answers ?? [], id: \.self) { answer in
                     Button(action: {
+                        print("Answer pressed: \(answer) \(model.currentQuestion?.correctAnswer ?? "")")
                         if answer == model.currentQuestion?.correctAnswer {
-                            model.score += 1
+                            $model.score.wrappedValue += 1
+                            print("Correct Answer \(model.score)")
+                            nextQuestion()
                         }
+                        else {
+                            print("Wrong Answer \(model.score)")
+                            nextQuestion()
+                        }
+
                     }) {
                         Text(answer)
                             .frame(maxWidth: .infinity)
@@ -62,20 +85,30 @@ struct TriviaView: View {
                 }
             }
             .padding(.leading)
-        }
 
+
+            Spacer()
+
+
+        }
 
 
     }
 }
 
 #Preview {
-    var mockedQuesiton = QuestionModel(
+    let mockedQuesiton1 = QuestionModel(
         question: "What is the capital of France?",
         answers: ["Paris", "London", "Berlin", "Madrid"],
         correctAnswer: "Paris")
 
-    var triviaModel = TriviaModel(questions: [mockedQuesiton])
+    let mockedQuesiton2 = QuestionModel(
+        question: "What is the capital of Britan?",
+        answers: ["Paris", "London", "Berlin", "Madrid"],
+        correctAnswer: "London")
+
+
+    var triviaModel = TriviaModel(questions: [mockedQuesiton1, mockedQuesiton2])
 
     TriviaView(model: triviaModel)
 }
