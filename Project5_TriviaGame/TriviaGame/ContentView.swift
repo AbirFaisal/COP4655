@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-class ContentModel: ObservableObject {
+class ContentModel: ObservableObject, Equatable {
+    static func == (lhs: ContentModel, rhs: ContentModel) -> Bool {
+        return false
+    }
+
     @Published var numberOfQuestions: Int = 1
     @Published var numberOfQuestionsString: String = "" {
         didSet {
@@ -111,7 +115,7 @@ struct ContentView: View {
     @State private var categories: [Category] = []
 
 
-    func fetchCategories() {
+    func fetchCategories() async {
         print("fetchCategories()")
 
         let url = URL(string: "https://opentdb.com/api_category.php")!
@@ -127,18 +131,24 @@ struct ContentView: View {
 
                 let categoriesArr = jsonObject!["trivia_categories"] as? [[String: Any]]
 
+                var cats:[Category] = []
 
                 for obj in categoriesArr! {
                     let id = obj["id"] as! Int
                     let name = obj["name"] as! String
 
+                    print(id, name)
+
                     self.categories.append(Category(id:id, name: name))
+
                 }
+
+//                self.categories = cats
 
 //                print(self.model.categories)
 
 //                DispatchQueue.main.async {
-//                    print(self.model.categories)
+////                    print(self.model.categories)
 //                }
             } catch {
                 print(error)
@@ -147,7 +157,7 @@ struct ContentView: View {
     }
 
 
-
+    @State var selectedCategory = 0
 
     var body: some View {
 
@@ -160,11 +170,21 @@ struct ContentView: View {
                 TextField("Number of Questions", text: $viewModel.model.numberOfQuestionsString)
                     .keyboardType(.numberPad)
 
-                Picker("Select Category", selection: $viewModel.model.selectedCategory) {
+                Picker("Select Category", selection: $selectedCategory) {
                     ForEach(categories) { category in
                         Text("\(category.name)").tag(category.id)
                     }
                 }
+
+
+//                Menu("Select Category") {
+//                    ForEach(categories) { category in
+//                        Text("\(category.name)").tag(category.id)
+//                    }
+//                }.onChange(of: selectedCategory) { newValue in
+//                    print(newValue)
+//                }.disabled(false)
+
 
                 Text("Difficulty \(ContentModel.difficultyLevel(rawValue: viewModel.model.difficulty) ?? .Easy)")
                 Slider(value: $viewModel.model.difficulty, in: 1...3, step: 1.0)
@@ -202,12 +222,11 @@ struct ContentView: View {
 
         }
         .padding()
-        .onAppear() {
-            print("onAppear was called")
-            fetchCategories()
-//            viewModel.fetchCategories()
-
-        }
+        .onAppear(perform: {
+            Task {
+                await fetchCategories()
+            }
+        })
     }
 }
 
