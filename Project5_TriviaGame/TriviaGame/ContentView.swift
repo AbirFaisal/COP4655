@@ -160,13 +160,11 @@ struct ContentView: View {
                 TextField("Number of Questions", text: $viewModel.model.numberOfQuestionsString)
                     .keyboardType(.numberPad)
 
-
                 Picker("Select Category", selection: $viewModel.model.selectedCategory) {
                     ForEach(categories) { category in
                         Text("\(category.name)").tag(category.id)
                     }
                 }
-
 
                 Text("Difficulty \(ContentModel.difficultyLevel(rawValue: viewModel.model.difficulty) ?? .Easy)")
                 Slider(value: $viewModel.model.difficulty, in: 1...3, step: 1.0)
@@ -189,7 +187,6 @@ struct ContentView: View {
             Spacer()
 
 
-
             //TODO change destination
             NavigationLink(destination: TriviaView(model: viewModel.trivia)) {
                 ZStack
@@ -208,6 +205,7 @@ struct ContentView: View {
         .onAppear() {
             print("onAppear was called")
             fetchCategories()
+//            viewModel.fetchCategories()
 
         }
     }
