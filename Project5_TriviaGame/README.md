@@ -1,21 +1,21 @@
 # Project 5 - *Name of App Here*
 
-Submitted by: **Your Name Here**
+Submitted by: **Abir Faisal**
 
-**Name of your app** is an app that ... [TODO] 
+**Project 5: Trivia Game** a trivia game that allows users to select a category, difficulty level, and number of questions. The game should fetch trivia questions from an API and display them to the user. The user should be able to answer the questions and submit their score.
 
-Time spent: **X** hours spent in total
+Time spent: **10** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [ ] App launches to an Options screen where user can modify the types of questions presented when the game starts. Users should be able to choose:
-  - [ ] Number of questions
-  - [ ] Category of questions
-  - [ ] Difficulty of questions
-  - [ ] Type of questions (Multiple Choice or True False)
-- [ ] User can tap a button to start trivia game, this presents questions and answers in a List or Card view.
+- [X] App launches to an Options screen where user can modify the types of questions presented when the game starts. Users should be able to choose:
+  - [X] Number of questions
+  - [X] Category of questions
+  - [X] Difficulty of questions
+  - [X] Type of questions (Multiple Choice or True False)
+- [X] User can tap a button to start trivia game, this presents questions and answers in a List or Card view.
   - Hint: For Card view visit your FlashCard app. List view is an equivalent to UITableView in UIKit. Much easier to use!
 - [ ] Selected choices are marked as user taps their choice (but answered is not presented yet!)
 - [ ] User can submit choices and is presented with a score on trivia game
@@ -30,6 +30,9 @@ The following **additional** features are implemented:
 - [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
+
+![](Demo.gif)
+
 
 Here's a walkthrough of implemented user stories:
 
