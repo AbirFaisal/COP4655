@@ -12,9 +12,11 @@ class QuestionModel: ObservableObject {
     @Published var answers: [String]
     @Published var correctAnswer: String
 
-    init(question: String, answers: [String], correctAnswer: String) {
+    init(question: String, correctAnswer: String, incorrectAnswers: [String]) {
         self.question = question
-        self.answers = answers
+//        self.answers = incorrectAnswers
+        self.answers = incorrectAnswers + [correctAnswer]
+
         self.correctAnswer = correctAnswer
     }
 
@@ -99,13 +101,13 @@ struct TriviaView: View {
 #Preview {
     let mockedQuesiton1 = QuestionModel(
         question: "What is the capital of France?",
-        answers: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "Paris")
+        correctAnswer: "Paris",
+        incorrectAnswers: ["London", "Berlin", "Madrid"])
 
     let mockedQuesiton2 = QuestionModel(
         question: "What is the capital of Britan?",
-        answers: ["Paris", "London", "Berlin", "Madrid"],
-        correctAnswer: "London")
+        correctAnswer: "London",
+        incorrectAnswers: ["Paris", "Berlin", "Madrid"])
 
 
     var triviaModel = TriviaModel(questions: [mockedQuesiton1, mockedQuesiton2])

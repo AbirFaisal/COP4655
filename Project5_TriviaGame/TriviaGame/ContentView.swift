@@ -13,7 +13,7 @@ class ContentModel: ObservableObject, Equatable {
     }
 
     @Published var numberOfQuestions: Int = 1
-    @Published var numberOfQuestionsString: String = "" {
+    @Published var numberOfQuestionsString: String = "5" {
         didSet {
             self.numberOfQuestions = Int(numberOfQuestionsString) ?? numberOfQuestions
             print(numberOfQuestions)
@@ -58,20 +58,20 @@ class ContentViewModel: ObservableObject {
         self.model = model
 
         let mockedQuesiton1 = QuestionModel(
-            question: "What is the capital of France?",
-            answers: ["Paris", "London", "Berlin", "Madrid"],
-            correctAnswer: "Paris")
+            question: "Who was the only god from Greece who did not get a name change in Rome?",
+            correctAnswer: "Apollo",
+            incorrectAnswers: ["Demeter","Zeus","Athena"])
 
         let mockedQuesiton2 = QuestionModel(
             question: "What is the capital of Britan?",
-            answers: ["Paris", "London", "Berlin", "Madrid"],
-            correctAnswer: "London")
+            correctAnswer: "London",
+            incorrectAnswers: ["Paris", "Berlin", "Madrid"])
 
         self.trivia = TriviaModel(questions: [mockedQuesiton1, mockedQuesiton2])
 
     }
 
-    func fetchCategories() async {
+    func fetchCategories() {
         print("fetchCategories()")
 
         let url = URL(string: "https://opentdb.com/api_category.php")!
@@ -122,6 +122,7 @@ struct ContentView: View {
 
         let url = URL(string: "https://opentdb.com/api_category.php")!
 
+
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data else { return }
 
@@ -155,6 +156,8 @@ struct ContentView: View {
         }.resume() //TODO find out what this does
     }
 
+
+
     func fetchQuestions() -> TriviaModel? {
         print("fetchQuestions()")
 
@@ -163,51 +166,59 @@ struct ContentView: View {
 
 
         let amount = viewModel.model.numberOfQuestionsString
-        let amountParam = "amount=\(viewModel.model.numberOfQuestionsString)"
+        let amountParam = "amount=\(amount)"
 
         let category = self.selectedCategory
-        let  categoryParam = "category=\(selectedCategory)"
+        let  categoryParam = "category=\(category)"
 
-        let difficuty = viewModel.model.difficulty
-        let difficutyParam = "difficulty=\(difficuty)"
 
-        let questionType = viewModel.model.selectedType
-        let questionTypeParam = "type=\(questionType)"
+        let difficutyLevels = ["easy", "medium", "hard"]
+        let difficutyParam = "difficulty=\(difficutyLevels[Int(viewModel.model.difficulty)])"
+
+        let questionType = ["multiple", "boolean"]
+        let questionTypeParam = "type=\(questionType[viewModel.model.selectedType])"
 
         let url = URL(string: "https://opentdb.com/api.php?\(amountParam)&\(categoryParam)&\(difficutyParam)&\(questionTypeParam)")!
 
         print(url)
 
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data else { return }
-            
+        Task {
             do {
-                print("fetched questions")
+
+                let (data, _) = try await URLSession.shared.data(from: url)
 
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-
-                let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
-
-                if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
-                    print(prettyPrintedString)
-                }
-
-//                let questions = try JSONDecoder().decode([QuestionModel].self, from: data)
-//
-//                DispatchQueue.main.async {
-//                    self.viewModel.model.categories = questions.categories
-//                    self.viewModel.model.difficulty = questions.draggable.difficulty
-//                    self.viewModel.model.numberOfQuestions = questions.draggable.numberOfQuestions
+//                let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject!, options: .prettyPrinted)
+//                if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
+//                    print(prettyPrintedString)
 //                }
 
+                let questionsArr = jsonObject!["results"] as? [[String: Any]]
 
+                if questionsArr != nil
+                {
 
-            }catch {
-                print(error)
+                    var qArr: [QuestionModel] = []
+
+                    for obj in questionsArr! {
+                        let qText = obj["question"] as? String
+                        let corAns = obj["correct_answer"] as? String
+                        let incorAnsArr = obj["incorrect_answers"] as? [String]
+
+                        let question = QuestionModel(question: qText!, correctAnswer: corAns!, incorrectAnswers: incorAnsArr!)
+
+                        questions.append(question)
+                    }
+                }
+            } catch {
+                print(error.localizedDescription)
             }
         }
 
-        return tm
+        print("Sucessfullay fetched questions")
+        print(questions)
+
+        return TriviaModel(questions: questions)
     }
 
 
@@ -255,7 +266,7 @@ struct ContentView: View {
 
 
             //TODO change destination
-            NavigationLink(destination: TriviaView(model: fetchQuestions() ?? viewModel.trivia)) {
+            NavigationLink(destination: TriviaView(model: viewModel.trivia)) {
                 ZStack
                 {
                     Rectangle()
