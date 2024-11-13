@@ -142,11 +142,10 @@ struct ContentView: View {
                     print(id, name)
 
                     self.categories.append(Category(id:id, name: name))
-
                 }
 
                 DispatchQueue.main.async {
-                    print(self.model.categories)
+                    print(self.categories)
 
                 }
 
@@ -156,10 +155,28 @@ struct ContentView: View {
         }.resume() //TODO find out what this does
     }
 
-    func fetchQuestions() async {
+    func fetchQuestions() -> TriviaModel? {
         print("fetchQuestions()")
-        
-        let url = URL(string: "https://opentdb.com/api.php?amount=\(viewModel.model.numberOfQuestionsString)&category=\(selectedCategory)")!
+
+        var questions: [QuestionModel] = []
+        var tm: TriviaModel = TriviaModel(questions: questions)
+
+
+        let amount = viewModel.model.numberOfQuestionsString
+        let amountParam = "amount=\(viewModel.model.numberOfQuestionsString)"
+
+        let category = self.selectedCategory
+        let  categoryParam = "category=\(selectedCategory)"
+
+        let difficuty = viewModel.model.difficulty
+        let difficutyParam = "difficulty=\(difficuty)"
+
+        let questionType = viewModel.model.selectedType
+        let questionTypeParam = "type=\(questionType)"
+
+        let url = URL(string: "https://opentdb.com/api.php?\(amountParam)&\(categoryParam)&\(difficutyParam)&\(questionTypeParam)")!
+
+        print(url)
 
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data else { return }
@@ -169,6 +186,11 @@ struct ContentView: View {
 
                 let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
 
+                let prettyPrintedData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+
+                if let prettyPrintedString = String(data: prettyPrintedData, encoding: .utf8) {
+                    print(prettyPrintedString)
+                }
 
 //                let questions = try JSONDecoder().decode([QuestionModel].self, from: data)
 //
@@ -178,10 +200,14 @@ struct ContentView: View {
 //                    self.viewModel.model.numberOfQuestions = questions.draggable.numberOfQuestions
 //                }
 
+
+
             }catch {
                 print(error)
             }
         }
+
+        return tm
     }
 
 
@@ -198,9 +224,9 @@ struct ContentView: View {
                 TextField("Number of Questions", text: $viewModel.model.numberOfQuestionsString)
                     .keyboardType(.numberPad)
 
-                Picker("Select Category", selection: $viewModel.model.selectedCategory) {
+                Picker("Select Category", selection: $selectedCategory) {
                     Text("None").tag(-1)
-                    ForEach($viewModel.model.categories) { category in
+                    ForEach(categories) { category in
                         Text("\(category.name)").tag(category.id)
                     }
                 }
@@ -229,7 +255,7 @@ struct ContentView: View {
 
 
             //TODO change destination
-            NavigationLink(destination: TriviaView(model: viewModel.trivia)) {
+            NavigationLink(destination: TriviaView(model: fetchQuestions() ?? viewModel.trivia)) {
                 ZStack
                 {
                     Rectangle()
@@ -245,8 +271,8 @@ struct ContentView: View {
         .padding()
         .onAppear(perform: {
             Task {
-//                await fetchCategories()
-                await viewModel.fetchCategories()
+                await fetchCategories()
+//                await viewModel.fetchCategories()
             }
         })
     }
