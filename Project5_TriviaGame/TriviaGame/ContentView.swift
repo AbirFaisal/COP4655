@@ -21,7 +21,7 @@ class ContentModel: ObservableObject, Equatable {
     }
 
     @Published var categories: [Category] = []
-    @Published var selectedCategory: Int?
+    @Published var selectedCategory: Int = -1
 
     @Published var difficulty: Double = 0
 
@@ -71,7 +71,7 @@ class ContentViewModel: ObservableObject {
 
     }
 
-    func fetchCategories() {
+    func fetchCategories() async {
         print("fetchCategories()")
 
         let url = URL(string: "https://opentdb.com/api_category.php")!
@@ -91,6 +91,8 @@ class ContentViewModel: ObservableObject {
                 for obj in categoriesArr! {
                     let id = obj["id"] as! Int
                     let name = obj["name"] as! String
+
+                    print(id, name)
 
                     self.model.categories.append(Category(id:id, name: name))
                 }
@@ -131,7 +133,7 @@ struct ContentView: View {
 
                 let categoriesArr = jsonObject!["trivia_categories"] as? [[String: Any]]
 
-                var cats:[Category] = []
+//                var cats:[Category] = []
 
                 for obj in categoriesArr! {
                     let id = obj["id"] as! Int
@@ -143,21 +145,47 @@ struct ContentView: View {
 
                 }
 
-//                self.categories = cats
+                DispatchQueue.main.async {
+                    print(self.model.categories)
 
-//                print(self.model.categories)
+                }
 
-//                DispatchQueue.main.async {
-////                    print(self.model.categories)
-//                }
             } catch {
                 print(error)
             }
         }.resume() //TODO find out what this does
     }
 
+    func fetchQuestions() async {
+        print("fetchQuestions()")
+        
+        let url = URL(string: "https://opentdb.com/api.php?amount=\(viewModel.model.numberOfQuestionsString)&category=\(selectedCategory)")!
 
-    @State var selectedCategory = 0
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data else { return }
+            
+            do {
+                print("fetched questions")
+
+                let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+
+
+//                let questions = try JSONDecoder().decode([QuestionModel].self, from: data)
+//
+//                DispatchQueue.main.async {
+//                    self.viewModel.model.categories = questions.categories
+//                    self.viewModel.model.difficulty = questions.draggable.difficulty
+//                    self.viewModel.model.numberOfQuestions = questions.draggable.numberOfQuestions
+//                }
+
+            }catch {
+                print(error)
+            }
+        }
+    }
+
+
+    @State var selectedCategory: Int = -1
 
     var body: some View {
 
@@ -170,20 +198,12 @@ struct ContentView: View {
                 TextField("Number of Questions", text: $viewModel.model.numberOfQuestionsString)
                     .keyboardType(.numberPad)
 
-                Picker("Select Category", selection: $selectedCategory) {
-                    ForEach(categories) { category in
+                Picker("Select Category", selection: $viewModel.model.selectedCategory) {
+                    Text("None").tag(-1)
+                    ForEach($viewModel.model.categories) { category in
                         Text("\(category.name)").tag(category.id)
                     }
                 }
-
-
-//                Menu("Select Category") {
-//                    ForEach(categories) { category in
-//                        Text("\(category.name)").tag(category.id)
-//                    }
-//                }.onChange(of: selectedCategory) { newValue in
-//                    print(newValue)
-//                }.disabled(false)
 
 
                 Text("Difficulty \(ContentModel.difficultyLevel(rawValue: viewModel.model.difficulty) ?? .Easy)")
@@ -207,6 +227,7 @@ struct ContentView: View {
             Spacer()
 
 
+
             //TODO change destination
             NavigationLink(destination: TriviaView(model: viewModel.trivia)) {
                 ZStack
@@ -224,7 +245,8 @@ struct ContentView: View {
         .padding()
         .onAppear(perform: {
             Task {
-                await fetchCategories()
+//                await fetchCategories()
+                await viewModel.fetchCategories()
             }
         })
     }
